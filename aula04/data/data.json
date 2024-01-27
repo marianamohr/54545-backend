@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "name": "Alvo Dumbledore",
+    "cidade": "Godric's Hollow",
+    "pais": "UK"
+  },
+  { "id": 2, "name": "Hermione Granger", "cidade": "Londres", "pais": "UK" },
+  {
+    "id": 3,
+    "name": "Harry Potter",
+    "cidade": "Godric's Hollow",
+    "pais": "UK"
+  },
+  {
+    "id": 4,
+    "name": "Rony Wesley",
+    "cidade": "Ottery St. Catchpole",
+    "pais": "UK"
+  }
+]
