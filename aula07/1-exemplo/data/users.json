@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Mari",
+    "sobrenome": "Mohr",
+    "idade": 34,
+    "curso": "Backend"
+  },
+  {
+    "id": 2,
+    "name": "Gabi",
+    "sobrenome": "Germano",
+    "idade": 31,
+    "curso": "Backend"
+  }
+]
