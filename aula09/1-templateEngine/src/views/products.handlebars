@@ -1,0 +1,11 @@
+ <div>
+    <H1>Hello {{user.name}} {{user.lastName}} => Role: {{user.role}}</H1>
+    {{#if isAdmin}}
+      <h2>Produtos</h2>
+      {{#each food}}
+        <p>{{name}} R$:{{price}}</p>
+      {{/each}}
+    {{else}}
+      <p>Voce nao tem acesso como admin</p>
+    {{/if}}
+ </div>
