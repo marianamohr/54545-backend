@@ -1,0 +1,14 @@
+<div>
+  <H1>Tudo certo</H1>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io(); 
+  console.log("aqui") 
+  socket.emit('message', 'Hello there from client'); 
+ 
+  socket.on('event_individual', (data) => { console.log(data)}); 
+  socket.on('hello', (data) => { console.log(data)});
+
+</script>
