@@ -1,0 +1,48 @@
+<div class="container-fluid mt-3">
+    <h1>CoderZap</h1>
+    <hr>
+
+    <div id="messages"></div>
+
+    <form class="form-inline" onsubmit="return addMessage(this)" autocomplete="off">
+        <input type="text" id="texto" class="form-control my-2 mr-2" placeholder="Fala ai ...">
+        <input class="btn btn-primary my-2" type="submit" value="Enviar!">
+    </form>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+    socket.on('messages', data => {
+        render(data);
+    });
+
+    // funçao que renderiza as mensagens
+    function render(data) {
+        console.log(data);
+        var html = data.map((elem) => {
+            console.log(elem)
+            return (`<div>
+            <em>${elem.text}</em> <em> - ${elem.socket_id}</em> 
+            </div>
+        `);
+        }).join(" ");
+
+        // faz o get  pelo ID e insere o html
+        document.getElementById("messages").innerHTML = html;
+    }
+
+    // Cria uma nova mensagem e a envia ao servidor
+    function addMessage(e) {
+        var mensagem = {
+            text: document.getElementById('texto').value
+        };
+
+        socket.emit('new-message', mensagem);
+        document.getElementById('texto').value = '';
+        document.getElementById('texto').focus();
+
+        return false;
+    }
+
+</script>
