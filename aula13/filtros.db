@@ -1,0 +1,33 @@
+// Exemplo de pesquisas CRUD com filtros combinados
+
+// Lógica
+
+// Encontrar documentos onde o campo "name" não é igual a "Max"
+db.coll.find({name:{$not:{eq: "Max"}}})
+
+// Encontrar documentos onde o campo "year" é igual a 1958 ou 1959
+db.coll.find({$or: [{"year":1958}, {"year": 1959}]})
+
+// Encontrar documentos onde o campo "price" não é igual a 1.99 e o campo "sale" não é igual a true
+db.coll.find({$nor:[{price: 1.99}, {sale: true}]})
+
+// Encontrar documentos onde:
+// 1. O campo "qty" é menor que 16 ou maior que 50
+// 2. E o campo "sale" é igual a true ou o campo "price" é menor que 5
+db.coll.find({
+    $and:[
+        {$or:[{qty:{$lt: 16}}, {qty:{$gt:50}}]},
+        {$or:[{sale: true}, {price:{$lt:5}}]}
+    ]
+})
+
+// Elemento
+
+// Encontrar documentos onde o campo "name" existe
+db.coll.find({name:{$exists: true}})
+
+// Encontrar documentos onde o campo "zipCode" é do tipo string (type 2)
+db.coll.find({"zipCode": {$type: 2}})
+
+// Encontrar documentos onde o campo "zipCode" é do tipo string
+db.coll.find({"zipCode": {$type: "string"}})

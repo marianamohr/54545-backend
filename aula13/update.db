@@ -1,0 +1,26 @@
+// Atualiza o documento com "_id" igual a 1, definindo os campos "year" e "name" para os valores especificados.
+db.coll.update({"_id":1}, {$set:{"year": 2016, name: "Max"}})
+
+// Remove o campo "year" do documento com "_id" igual a 1.
+db.coll.update({"_id":1}, {$unset:{"year:":1}})
+
+// Renomeia o campo "year" para "date" no documento com "_id" igual a 1.
+db.coll.update({"_id":1}, {$rename:{"year": "date"}})
+
+// Incrementa o valor do campo "year" em 5 no documento com "_id" igual a 1.
+db.coll.update({"_id":1}, {$inc:{"year": 5}})
+
+// Multiplica o valor dos campos "price" e "qty" por 1.25 e 2, respectivamente, no documento com "_id" igual a 1.
+db.coll.update({"_id":1}, {$mul:{price: NumberDecimal(1.25), qty:2}})
+
+// Define o valor do campo "imdb" como 5, se for menor do que o valor atual, no documento com "_id" igual a 1.
+db.coll.update({"_id":1}, {$min:{"imdb": 5}})
+
+// Define o valor do campo "imdb" como 8, se for maior do que o valor atual, no documento com "_id" igual a 1.
+db.coll.update({"_id":1}, {$max:{"imdb": 8}})
+
+// Define o valor do campo "LastModified" como a data atual, no formato de data, no documento com "_id" igual a 1.
+db.coll.update({"_id":1}, {$currentDate: {"LastModified": true}})
+
+// Define o valor do campo "LastModified" como a data e hora atuais, no formato de timestamp, no documento com "_id" igual a 1.
+db.coll.update({"_id":1}, {$currentDate: {"LastModified":{$type: "timestamp"}}})
