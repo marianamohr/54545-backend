@@ -58,7 +58,7 @@ const main = async () => {
    // { $project: { _id: 0, orders: "$orders" } },
    // { $merge: { into: "reports" } },
   ]);
-  console.log(result); */
+  console.log(result); 
 
   const result = await studentModel.insertMany([
     {
@@ -94,8 +94,14 @@ const main = async () => {
       group: "1B"
     },
   ]);
-  console.log(result)
+  console.log(result)*/
 
+  const result = await studentModel.aggregate([
+    { $sort: { grade: -1 } },
+    { $group: { _id: "$group", myCount: { $sum: 1 } } },
+    { $project: { _id: 0 } }
+  ]);
+  console.log(result);
 };
 
 main();
