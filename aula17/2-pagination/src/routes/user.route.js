@@ -9,6 +9,7 @@ router.get("/:nome/:page", async (req, res) => {
   console.log(page)
 
   const users = await userService.getUsers(nome,page);
+  
   return res.status(200).json({ message: users });
 });
 

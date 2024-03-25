@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
 
 router.get("/list", async (req, res) => {
   const users = await userService.getUsers('', 0);
-  res.render("list", { users });
+  res.render("list", { users });  
 });
   
 
