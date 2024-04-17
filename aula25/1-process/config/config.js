@@ -16,4 +16,5 @@ export default {
   pass: process.env.DB_PASS,
   environment: process.env.ENV,
   secret: process.env.SECRET_KEY,
+  port: process.env.PORT,
 };
