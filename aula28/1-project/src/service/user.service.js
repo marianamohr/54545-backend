@@ -1,4 +1,4 @@
-const userDao = require("../dao/users.dao");
+const userDao = require("../factory/factory")
 
 const get = async () => {
   const users = await userDao.get();

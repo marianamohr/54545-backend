@@ -1,8 +1,11 @@
-const express = require("express")
+const express = require("express");
 const mongoose = require("mongoose");
-const userRouter = require("./routers/user.router")
+const userRouter = require("./routers/user.router");
 
-const app = express()
+const config = require("./config/config");
+console.log(config);
+
+const app = express();
 
 mongoose
   .connect(
@@ -14,9 +17,9 @@ mongoose
   });
 
 app.get("/", (req, res) => {
-    res.send("Hello World!")
-})
+  res.send("Hello World!");
+});
 
-app.use("/users", userRouter)
+app.use("/users", userRouter);
 
-module.exports = app 
+module.exports = app;
