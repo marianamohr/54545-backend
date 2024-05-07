@@ -23,7 +23,7 @@ const initializePassport = () => {
     new JWTStrategy(
       {
         jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-        secretOrKey: config.secret, // má pratica
+        secretOrKey: config.secret, 
       },
       async (jwt_payload, done) => {
         console.log("AAAAAAA", jwt_payload);
