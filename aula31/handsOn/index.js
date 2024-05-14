@@ -1,5 +1,6 @@
 const login = (user, pass) => {
-  const userFound ={
+  // const userFound = userModel.find({email : user})
+  const userFound = {
     user: "Coder",
     pass: "12345"
   }
