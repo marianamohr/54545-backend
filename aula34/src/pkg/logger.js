@@ -2,7 +2,14 @@ const winston = require("winston");
 
 const ENV = "prod";
 
-const logger = winston.createLogger({
+const devLogger = winston.createLogger({
+  transports: [
+    new winston.transports.Console({ level: "http" }),
+    new winston.transports.File({ filename: "./error.log", level: "warn" }),
+  ],
+});
+
+const prodLogger = winston.createLogger({
   transports: [
     new winston.transports.Console({ level: "http" }),
     new winston.transports.File({ filename: "./error.log", level: "warn" }),
