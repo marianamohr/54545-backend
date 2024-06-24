@@ -1,0 +1,59 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  // Patch,
+  Param,
+  // Delete,
+  HttpException,
+  HttpStatus,
+  Query,
+} from '@nestjs/common';
+import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
+//import { UpdateUserDto } from './dto/update-user.dto';
+
+@Controller('users')
+export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
+
+  @Post()
+  async create(@Body() createUserDto: CreateUserDto) {
+    if (!createUserDto.first_name || !createUserDto.email) {
+      throw new HttpException('Incomplete Values', HttpStatus.BAD_REQUEST);
+    }
+    const newUser = await this.usersService.create(createUserDto);
+    // console.log(newUser);
+    return { status: 'success', data: newUser };
+  }
+
+  @Get()
+  async findAll(@Query('limit') limit) {
+    console.log(limit);
+    const users = await this.usersService.findAll();
+    console.log(users);
+    return { status: 'success', data: users };
+  }
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    //if (isNaN(+id)) {
+    // throw new HttpException('Invalid param', HttpStatus.BAD_REQUEST);
+    // }
+    const user = await this.usersService.findOne(id);
+    return { status: 'success', data: user };
+  }
+
+  /*
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    const newUser = this.usersService.update(+id, updateUserDto);
+    return { status: 'success', data: newUser };
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.usersService.remove(+id);
+  }*/
+}
