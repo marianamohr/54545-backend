@@ -3,16 +3,16 @@ import {
   Get,
   Post,
   Body,
-  // Patch,
+  Patch,
   Param,
-  // Delete,
+  Delete,
   HttpException,
   HttpStatus,
   Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
-//import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -44,16 +44,14 @@ export class UsersController {
     return { status: 'success', data: user };
   }
 
-  /*
-
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    const newUser = this.usersService.update(+id, updateUserDto);
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    const newUser = await this.usersService.update(id, updateUserDto);
     return { status: 'success', data: newUser };
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
-  }*/
+  async remove(@Param('id') id: string) {
+    return await this.usersService.remove(id);
+  }
 }

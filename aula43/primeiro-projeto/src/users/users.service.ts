@@ -1,16 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-// import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 import { User } from './entities/user.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    private config: ConfigService,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
+    const xablau = this.config.get<string>('XABLAU');
+    console.log(xablau);
     const user = await this.userModel.create(createUserDto);
 
     console.log(user);
@@ -28,20 +34,14 @@ export class UsersService {
 
     return user;
   }
-  /*
-  update(id: number, updateUserDto: UpdateUserDto) {
-    const index = this.users.findIndex((u) => u.id === id);
-    const user = {
-      id: id,
-      ...updateUserDto,
-    } as User;
-    this.users[index] = user;
+
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const user = await this.userModel.updateOne({ _id: id }, updateUserDto);
     return user;
   }
 
-  remove(id: number) {
-    const users = this.users.filter((u) => u.id !== id);
-    this.users = users;
-    return `This action removes a #${id} user`;
-  }*/
+  async remove(id: string) {
+    const users = await this.userModel.deleteOne({ _id: id });
+    return users;
+  }
 }
