@@ -34,7 +34,12 @@ export class UsersService {
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     const user = await this.userModel.updateOne({ _id: id }, updateUserDto);
-    return user;
+    console.log(user);
+    if (user.modifiedCount === 0) {
+      return { message: `User with _id ${id} not found` };
+    }
+    const newUser = await this.userModel.findOne({ _id: id });
+    return newUser;
   }
 
   async remove(id: string) {

@@ -58,14 +58,18 @@ describe('UsersService', () => {
       };
       const result = await service.create(createUserDto);
       expect(result).toEqual(mockUser);
+      expect(result._id).toEqual(`1`);
+      expect(typeof result).toBe('object');
       expect(model.create).toHaveBeenCalledWith(createUserDto);
     });
+    it('should return an error when try to add a user with an existent email', async () => {});
   });
 
   describe('findAll', () => {
     it('should return an array of users', async () => {
       const result = await service.findAll();
       expect(result).toEqual([mockUser]);
+      expect(typeof result).toBe('array');
       expect(model.find).toHaveBeenCalled();
     });
   });
@@ -82,8 +86,31 @@ describe('UsersService', () => {
     it('should update a user', async () => {
       const updateUserDto: UpdateUserDto = { first_name: 'Updated User' };
       const result = await service.update('1', updateUserDto);
-      expect(result).toEqual({ modifiedCount: 1 });
+      expect(result).toEqual(mockUser);
       expect(model.updateOne).toHaveBeenCalledWith({ _id: '1' }, updateUserDto);
+      expect(model.findOne).toHaveBeenCalledWith({ _id: '1' });
+    });
+    it('erro ao tentar atualizar usuario q nao existe', async () => {
+      // Arrange
+      jest.spyOn(model, 'updateOne').mockResolvedValue({
+        acknowledged: true,
+        modifiedCount: 0,
+        upsertedId: null,
+        upsertedCount: 0,
+        matchedCount: 0,
+      });
+      const updateUserDto: UpdateUserDto = { first_name: 'Updated User' };
+
+      // Act
+      const result = await service.update('100', updateUserDto);
+
+      // Assert
+      expect(result).toEqual({ message: `User with _id 100 not found` });
+      expect(model.updateOne).toHaveBeenCalledWith(
+        { _id: '100' },
+        updateUserDto,
+      );
+      expect(model.findOne).not.toHaveBeenCalledWith({ _id: '100' });
     });
   });
 

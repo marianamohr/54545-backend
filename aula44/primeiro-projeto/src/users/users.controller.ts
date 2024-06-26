@@ -66,6 +66,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Delete a user' })
   @ApiResponse({ status: 201, description: 'The created user', type: User })
   async remove(@Param('id') id: string) {
-    return await this.usersService.remove(id);
+    const userDeleted = await this.usersService.remove(id);
+    return { status: 'success', data: userDeleted };
   }
 }
